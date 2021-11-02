@@ -1,0 +1,15 @@
+- hosts: localhost
+  connection: local
+  gather_facts: true
+  name: "Vars demo2"
+
+  tasks:
+  - name: import vars
+    ansible.builtin.include_vars:
+      file: vars/vars.txt
+
+  - name: "Loop over imported animals1"
+    ansible.builtin.debug:
+      msg: "A {{ item.key }} has {{ item.value.legs }} legs and is {{ item.value.color }}"
+    loop: "{{ animals1 | dict2items }}"
+    tags: always
