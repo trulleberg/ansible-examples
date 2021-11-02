@@ -2,11 +2,11 @@
 - hosts: localhost
   connection: local
   gather_facts: true
-  name: Vars demo1
+  name: "Vars demo1"
 
   tasks:
   - name: "Create local vars/dicts"
-    set_fact:
+    ansible.builtin.set_fact:
       animals1:
         dog:
           legs:     4
@@ -25,44 +25,44 @@
 
 
   - name: "loop over inital dict"
-    debug:
+    ansible.builtin.debug:
       msg: "A {{ item.key }} has {{ item.value.legs }} legs and is {{ item.value.color }}"
     loop: "{{ animals1 | dict2items }}"
     tags: always
 
   - name: "Adding cats to the aminmal1 list" 
-    set_fact:
+    ansible.builtin.set_fact:
       animals1: "{{ animals1 | combine({ 'cat': { 'legs': '4', 'color': 'grey' } }) }}"         
     tags: always
 
   - name: "Adding ducks to the animal1 list"
-    set_fact:
+    ansible.builtin.set_fact:
       animals1: "{{ animals1 | combine({ 'duck': { 'legs': '2', 'color': 'white' } }) }}"
     tags: always
 
   - name: "Adding an elephant"
-    set_fact:
+    ansible.builtin.set_fact:
       animals1: "{{ animals1 | combine({ 'elephant': { 'legs': '4', 'color': 'grey' } }) }}"
     tags: always
 
   - name: "Loop over the new dict"
-    debug:
+    ansible.builtin.debug:
       msg: "A {{ item.key }} has {{ item.value.legs }} legs and is {{ item.value.color }}"
     loop: "{{ animals1 | dict2items }}"
     tags: always
 
   - name: "join two dicts without limitation"
-    set_fact:
+    ansible.builtin.set_fact:
       animals3: "{{animals1 | combine(animals2)}}"
     tags: always
 
   - name: "debug animals3"
-    debug:
+    ansible.builtin.debug:
       var: animals3
     tags: always
 
   - name: "Create a new list and make sure the key in animals1"
-    set_fact:
+    ansible.builtin.set_fact:
       animals4: "{{ (animals4 | default({})) |  combine ( {item.key : item.value})  }}"
     loop: "{{ (animals1 | combine(animals2) ) | dict2items }}"
     when:
@@ -70,8 +70,15 @@
     tags: always
 
   - name: "debug the animals4 var"
-    debug:
+    ansible.builtin.debug:
       var: animals4
+    tags: always
+
+
+  - name: "Save the Vars"
+    template:
+      src: vars/vars.j2
+      dest: vars/vars.txt
     tags: always
 
 
