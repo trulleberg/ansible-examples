@@ -77,8 +77,14 @@
 
   - name: "Save the Vars"
     template:
-      src: vars/vars.j2
-      dest: vars/vars.txt
+      src: vars/vars-as-json.j2
+      dest: vars/vars.json
+    tags: always
+
+  - name: "Save the Vars"
+    template:
+      src: vars/vars-as-yaml.j2
+      dest: vars/vars.yaml
     tags: always
 
 

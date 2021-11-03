@@ -1,12 +1,12 @@
 - hosts: localhost
   connection: local
-  gather_facts: true
+  gather_facts: false
   name: "Vars demo2"
 
   tasks:
   - name: import vars
     ansible.builtin.include_vars:
-      file: vars/vars.txt
+      file: vars/vars.yaml
 
   - name: "Loop over imported animals1"
     ansible.builtin.debug:

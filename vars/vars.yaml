@@ -1,0 +1,26 @@
+# List of my vars to save
+animals1: 
+  cat:
+    color: grey
+    legs: '4'
+  dog:
+    color: brown
+    legs: 4
+  duck:
+    color: white
+    legs: '2'
+  elephant:
+    color: grey
+    legs: '4'
+
+
+animals2: 
+  duck:
+    color: white
+    legs: 2
+  fish:
+    color: orange
+    legs: 0
+  zebra:
+    color: white/black
+    legs: 4
