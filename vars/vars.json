@@ -6,7 +6,7 @@ animals1: {
     },
     "dog": {
         "color": "brown",
-        "legs": 4
+        "legs": "4"
     },
     "duck": {
         "color": "white",
@@ -20,14 +20,14 @@ animals1: {
 animals2: {
     "duck": {
         "color": "white",
-        "legs": 2
+        "legs": "2"
     },
     "fish": {
         "color": "orange",
-        "legs": 0
+        "legs": "0"
     },
     "zebra": {
         "color": "white/black",
-        "legs": 4
+        "legs": "4"
     }
 } 

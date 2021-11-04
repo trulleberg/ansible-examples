@@ -1,0 +1,2 @@
+skip_list:
+  - colons      # This ignores the "too many spaces after colon"
