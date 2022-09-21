@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: true
+  name: "Human readable demo"
+
+  tasks:
+    - name: "Create local vars"
+      ansible.builtin.set_fact:
+        sizes:
+          - "1GB"
+          - "1.5 GB"
+          - "1 TB"
+          - "2.5TB"
+          - "3t"
+        reserve: 10
+
+    - name: Debug
+      ansible.builtin.debug:
+        msg:                      "Input: {{ item }}, value in bytes: {{ (item | human_to_bytes / ( 1 - ( reserve / 100 )) | round(0,'ceil') )| int }}"
+      loop: "{{ sizes   }}"
