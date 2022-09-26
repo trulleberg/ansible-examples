@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: local
   gather_facts: true
-  name: "Human readable demo"
+  name: "Convert human inputs to bytes for proper volume sizes."
 
   tasks:
     - name: "Create local vars"
@@ -18,7 +18,7 @@
           - "125"
         reserve: 10
 
-    - name: Debug
+    - name: Debug                                                                                                       #https://docs.saltproject.io/en/master/topics/jinja/index.html
       ansible.builtin.debug:
         msg:                        "Input: {{ item }}, value in bytes: {{ (item | human_to_bytes(default_unit='GB') / ( 1 - ( reserve / 100 )) | round(0,'ceil') )| int }}"
       loop: "{{ sizes }}"
