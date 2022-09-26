@@ -8,14 +8,20 @@
     - name: "Create local vars"
       ansible.builtin.set_fact:
         sizes:
-          - "1GB"
+          - "125GB"
           - "1.5 GB"
           - "1 TB"
           - "2.5TB"
           - "3t"
+          - "125G"
+          - "125g"
+          - "125"
         reserve: 10
 
     - name: Debug
       ansible.builtin.debug:
-        msg:                      "Input: {{ item }}, value in bytes: {{ (item | human_to_bytes / ( 1 - ( reserve / 100 )) | round(0,'ceil') )| int }}"
+        msg:                        "{{ value }}"
       loop: "{{ sizes   }}"
+      vars:
+        item2:                      "{% if item | int == 0 %}{{ item }}{% else %}{{ item }}GB{% endif %}"
+        value:                        "Input: {{ item2 }}, value in bytes: {{ (item2 | human_to_bytes / ( 1 - ( reserve / 100 )) | round(0,'ceil') )| int }}"
