@@ -24,9 +24,12 @@
           - "125"
           - "21 gb"
           - "1,2 g"
+          - " 2g"
+          - "2,42 g"
+          - "2.42 g"
         reserve: 10
 
     - name: Debug                                                                                                       #https://docs.saltproject.io/en/master/topics/jinja/index.html
       ansible.builtin.debug:
-        msg:                        "Input: {{ item }}, value in bytes: {{ (item | replace('b','B') | human_to_bytes(default_unit='GB') / ( 1 - ( reserve / 100 )) | round(0,'ceil') ) | int }}"
+        msg:                        "Input: {{ item }}, value in bytes: {{ (item | replace('b','B') | replace(',','.') | human_to_bytes(default_unit='GB') / ( 1 - ( reserve / 100 )) | round(0,'ceil') ) | int }}"
       loop: "{{ sizes }}"
