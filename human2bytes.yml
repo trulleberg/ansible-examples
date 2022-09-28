@@ -3,33 +3,32 @@
   connection: local
   gather_facts: true
   name: "Convert human inputs to bytes for proper volume sizes."
-#  This "function" assumes all inputs are in BYTES, if Bits is wanted replace B with b and add "isbits=true" to human_to_bytes
+#  This "function" assumes all inputs are in BYTES, if Bits is wanted replace 
+#  B with b and use human_to_bytes(isbits=true)
 #
 #
 #
 
   tasks:
-    - name: "Create local vars"
+    - name: "Create local vars"                                                                                         #Used for Testing
       ansible.builtin.set_fact:
         sizes:
-          - "3gBasdfggg" 
-          - "3tb"
+          - "1"
+          - "1 gb"
           - "1 GB"
-          - "1.5 GB"
-          - "1 TB"
-          - "2.5TB"
-          - "3 T"
-          - "125G"
-          - "125GB"
-          - "125"
-          - "21 gb"
-          - "1,2 g"
-          - " 2g"
-          - "2,42 g"
-          - "2.42 g"
+          - "2 tb"
+          - "2 t"
+          - "2.3 t"
+          - "2,3 t"
+          - "2,3 tBytes"
+          - "2,3 tByts"
+          - "35t"
+          - "15t"
         reserve: 10
 
     - name: Debug                                                                                                       #https://docs.saltproject.io/en/master/topics/jinja/index.html
       ansible.builtin.debug:
-        msg:                        "Input: {{ item }}, value in bytes: {{ (item | replace('b','B') | replace(',','.') | human_to_bytes(default_unit='GB') / ( 1 - ( reserve / 100 )) | round(0,'ceil') ) | int }}"
+        msg:                        "Input: {{ item }}, value in bytes: {{
+                                     ( ( item | replace('b','B') | replace(',','.') | human_to_bytes(default_unit='GB') ) / ( 1 - ( reserve / 100 ) ) ) | int 
+                                    }}"
       loop: "{{ sizes }}"
