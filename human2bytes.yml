@@ -28,7 +28,9 @@
 
     - name: Debug                                                                                                       #https://docs.saltproject.io/en/master/topics/jinja/index.html
       ansible.builtin.debug:
-        msg:                        "Input: {{ item }}, value in bytes: {{
-                                     ( ( item | replace('b','B') | replace(',','.') | human_to_bytes(default_unit='GB') ) / ( 1 - ( reserve / 100 ) ) ) | int 
-                                    }}"
+        msg:                        "{{ item }} + {{ reserve }}% is: {{
+                                     ( ( item | replace('b','B') | replace(',','.') 
+                                        | human_to_bytes(default_unit='GB') ) / ( 1 - ( reserve / 100 ) ) ) 
+                                        | int 
+                                    }} in bytes"
       loop: "{{ sizes }}"
